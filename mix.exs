@@ -24,6 +24,7 @@ defmodule Cluster.Mixfile do
   defp deps do
     [{:ex_doc, "~> 0.13", only: :dev},
      {:dialyxir, "~> 0.3", only: :dev},
+     {:confex, ">= 0.0.0"},
      {:poison, "~> 2.2"}]
   end
 

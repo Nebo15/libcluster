@@ -27,21 +27,16 @@ defmodule Cluster.Strategy.Gossip do
   use Cluster.Strategy
   import Cluster.Logger
 
-  @default_port 45892
-  @default_addr {0,0,0,0}
-  @default_multicast_addr {230,1,1,251}
-
   def start_link() do
     GenServer.start_link(__MODULE__, [], name: __MODULE__)
   end
 
   def init(_) do
     info "[strategy:gossip] starting"
-    opts = Application.get_all_env(:libcluster)
-    port = Keyword.get(opts, :port, @default_port)
-    ip   = Keyword.get(opts, :if_addr, @default_addr)
-    ttl  = Keyword.get(opts, :multicast_ttl, 1)
-    multicast_addr = case Keyword.get(opts, :multicast_addr, @default_multicast_addr) do
+    port = Confex.get(:libcluster, :port)
+    ip   = Confex.get(:libcluster, :if_addr)
+    ttl  = Confex.get(:libcluster, :multicast_ttl)
+    multicast_addr = case Confex.get(:libcluster, :multicast_addr) do
                        {_a,_b,_c,_d} = ip -> ip
                        ip when is_binary(ip) ->
                          {:ok, addr} = :inet.parse_ipv4_address(~c"#{ip}")
