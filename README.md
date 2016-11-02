@@ -46,14 +46,14 @@ following config settings:
 
 ```elixir
 config :libcluster,
-  strategy: Cluster.Strategy.Gossip,
-  port: 45892,
-  if_addr: {0,0,0,0},
-  multicast_addr: {230,1,1,251},
+  strategy: {:system, :atom, LIBCLUSTER_STRATEGY, Cluster.Strategy.Gossip},
+  port: {:system, :integer, LIBCLUSTER_MULTICAST_PORT, 45892},
+  if_addr: {:system, LIBCLUSTER_MULTICAST_PORT_IF_ADDR, {0,0,0,0}},
+  multicast_addr: {:system, LIBCLUSTER_MULTICAST_ADDR, {230,1,1,251}},
   # a TTL of 1 remains on the local network,
   # use this to change the number of jumps the
   # multicast packets will make
-  multicast_ttl: 1
+  multicast_ttl: {:system, :integer, LIBCLUSTER_MULTICAST_TTL, 1}
 ```
 
 The Kubernetes strategy works by querying the Kubernetes API for all endpoints in the same namespace which match the provided
