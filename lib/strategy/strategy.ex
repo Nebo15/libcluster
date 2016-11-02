@@ -28,7 +28,7 @@ defmodule Cluster.Strategy do
   @doc false
   @spec selected_strategy() :: module()
   def selected_strategy(),
-    do: Application.get_env(:libcluster, :strategy, Cluster.Strategy.Epmd)
+    do: Confex.get(:libcluster, :strategy)
 
   @doc """
   Given a list of node names, attempts to connect to all of them.
