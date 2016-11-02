@@ -61,8 +61,8 @@ defmodule Cluster.Strategy.Kubernetes do
   defp get_nodes() do
     token     = get_token()
     namespace = get_namespace()
-    app_name = Application.get_env(:libcluster, :kubernetes_node_basename)
-    selector = Application.get_env(:libcluster, :kubernetes_selector)
+    app_name = Confex.get(:libcluster, :kubernetes_node_basename)
+    selector = Confex.get(:libcluster, :kubernetes_selector)
     cond do
       app_name != nil and selector != nil ->
         selector = URI.encode(selector)

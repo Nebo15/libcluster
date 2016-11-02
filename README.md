@@ -64,9 +64,9 @@ IP address. Configuration might look like so:
 
 ```elixir
 config :libcluster,
-  strategy: Cluster.Strategy.Kubernetes,
-  kubernetes_selector: "app=myapp",
-  kubernetes_node_basename: "myapp"
+  strategy: { :system, "LIBCLUSTER_STRATEGY", Cluster.Strategy.Kubernetes },
+  kubernetes_selector: { :system, "LIBCLUSTER_KUBERNATES_SELECTOR", "app=my_app" },
+  kubernetes_node_basename: { :system, "LIBCLUSTER_KUBERNATES_NODE_BASENAME", "my_app" }
 ```
 
 And in vm.args:
