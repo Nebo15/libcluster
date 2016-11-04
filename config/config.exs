@@ -2,5 +2,5 @@
 # and its dependencies with the aid of the Mix.Config module.
 use Mix.Config
 
-config :libcluster,
+config :skycluster,
   strategy: Cluster.Strategy.Epmd

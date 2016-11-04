@@ -7,5 +7,5 @@ defmodule Cluster.Logger do
   def warn(msg),  do: log(:warn, msg)
   def error(msg), do: log(:error, msg)
 
-  defp log(level, msg), do: Logger.log(level, "[libcluster] #{msg}")
+  defp log(level, msg), do: Logger.log(level, "[skycluster] #{msg}")
 end

@@ -15,7 +15,7 @@ defmodule Cluster.Strategy.Gossip do
   You may configure the multicast address, the interface address to bind to, the port,
   and the TTL of the packets, using the following settings:
 
-      config :libcluster,
+      config :skycluster,
         port: 45892,
         if_addr: "0.0.0.0",
         multicast_addr: "230.1.1.251",
@@ -33,10 +33,10 @@ defmodule Cluster.Strategy.Gossip do
 
   def init(_) do
     info "[strategy:gossip] starting"
-    port = Confex.get(:libcluster, :port)
-    ip   = Confex.get(:libcluster, :if_addr)
-    ttl  = Confex.get(:libcluster, :multicast_ttl)
-    multicast_addr = case Confex.get(:libcluster, :multicast_addr) do
+    port = Confex.get(:skycluster, :port)
+    ip   = Confex.get(:skycluster, :if_addr)
+    ttl  = Confex.get(:skycluster, :multicast_ttl)
+    multicast_addr = case Confex.get(:skycluster, :multicast_addr) do
                        {_a,_b,_c,_d} = ip -> ip
                        ip when is_binary(ip) ->
                          {:ok, addr} = :inet.parse_ipv4_address(~c"#{ip}")

@@ -174,5 +174,4 @@ defmodule Cluster.Events do
   defp write_debug(_dev, event, _ctx) do
     Cluster.Logger.debug("[events] #{inspect event}")
   end
-
 end

@@ -13,6 +13,7 @@ defmodule Cluster.Strategy.Kubernetes do
   use Cluster.Strategy
   import Cluster.Logger
 
+  # TODO: This stuff can be found in environment variables
   @kubernetes_master    "kubernetes.default.svc.cluster.local"
   @service_account_path "/var/run/secrets/kubernetes.io/serviceaccount"
 
@@ -61,8 +62,8 @@ defmodule Cluster.Strategy.Kubernetes do
   defp get_nodes() do
     token     = get_token()
     namespace = get_namespace()
-    app_name = Confex.get(:libcluster, :kubernetes_node_basename)
-    selector = Confex.get(:libcluster, :kubernetes_selector)
+    app_name = Confex.get(:skycluster, :kubernetes_node_basename)
+    selector = Confex.get(:skycluster, :kubernetes_selector)
     cond do
       app_name != nil and selector != nil ->
         selector = URI.encode(selector)
