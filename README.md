@@ -10,6 +10,12 @@ out of the box.
 
 View the docs [here](https://hexdocs.pm/skycluster).
 
+# Deprecation warning
+
+This package is deprecated in favor of [bitwalker/libcluster](github.com/bitwalker/libcluster) implementation for service discovery and [phoenixframework/firenest](https://github.com/phoenixframework/firenest/) for messages broadcasting. 
+
+We think that this approach will be more reusable for community, because separate tasks should be done with a separate building blocks of your application.
+
 ## Features
 
 - automatic cluster formation/healing
