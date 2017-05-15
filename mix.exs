@@ -1,12 +1,12 @@
 defmodule Cluster.Mixfile do
   use Mix.Project
 
-  @version "1.1.0"
+  @version "1.1.1"
 
   def project do
     [app: :skycluster,
      description: "Automatic Erlang cluster formation, messaging and management for Elixir/Erlang applications.",
-     package: package,
+     package: package(),
      version: @version,
      elixir: "~> 1.3",
      elixirc_paths: elixirc_paths(Mix.env),
@@ -46,7 +46,7 @@ defmodule Cluster.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [{:confex, ">= 0.0.0"},
-     {:poison, "~> 2.2"},
+     {:poison, "~> 3.1"},
      {:ex_doc, ">= 0.0.0", only: [:dev, :test]},
      {:excoveralls, "~> 0.5", only: [:dev, :test]},
      {:dogma, "> 0.1.0", only: [:dev, :test]},
