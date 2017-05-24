@@ -72,10 +72,10 @@ defmodule Cluster.Strategy.Kubernetes do
         http_options   = [ssl: [verify: :verify_none]]
         case :httpc.request(:get, {'https://#{@kubernetes_master}/#{endpoints_path}', headers}, http_options, []) do
           {:ok, {{_version, 200, _status}, _headers, body}} ->
-            case Poison.decode!(body) do
-              %{"items" => []} ->
+            case Poison.decode(body) do
+              {:ok, %{"items" => []}} ->
                 []
-              %{"items" => items} ->
+              {:ok, %{"items" => items}} ->
                 Enum.reduce(items, [], fn
                   %{"subsets" => []}, acc ->
                     acc
@@ -89,7 +89,10 @@ defmodule Cluster.Strategy.Kubernetes do
                   _, acc ->
                     acc
                 end)
-              _ ->
+              {:ok, _} ->
+                []
+              {:error, reason} ->
+                Logger.error("Can not decode Kubernetes response, reason: #{inspect reason}, body: #{inspect body}")
                 []
             end
           {:ok, {{_version, 403, _status}, _headers, body}} ->
