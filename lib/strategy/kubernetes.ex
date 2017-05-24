@@ -92,12 +92,16 @@ defmodule Cluster.Strategy.Kubernetes do
               {:ok, _} ->
                 []
               {:error, reason} ->
-                error("Can not decode Kubernetes response, reason: #{inspect reason}, body: #{inspect body}")
+                error "Can not decode Kubernetes response, reason: #{inspect reason}, body: #{inspect body}"
                 []
             end
           {:ok, {{_version, 403, _status}, _headers, body}} ->
-            %{"message" => msg} = Poison.decode!(body)
-            warn "cannot query kubernetes (unauthorized): #{msg}"
+            case Poison.decode(body) do
+              {:ok, %{"message" => msg}} ->
+                warn "cannot query kubernetes (unauthorized): #{msg}"
+              _ ->
+                error "cannot decode kubernetes (unauthorized) response: #{body}"
+            end
             []
           {:ok, {{_version, code, status}, _headers, body}} ->
             warn "cannot query kubernetes (#{code} #{status}): #{inspect body}"
