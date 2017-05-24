@@ -92,7 +92,7 @@ defmodule Cluster.Strategy.Kubernetes do
               {:ok, _} ->
                 []
               {:error, reason} ->
-                Logger.error("Can not decode Kubernetes response, reason: #{inspect reason}, body: #{inspect body}")
+                error("Can not decode Kubernetes response, reason: #{inspect reason}, body: #{inspect body}")
                 []
             end
           {:ok, {{_version, 403, _status}, _headers, body}} ->
