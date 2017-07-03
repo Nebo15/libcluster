@@ -28,7 +28,7 @@ defmodule Cluster.Strategy do
   @doc false
   @spec selected_strategy() :: module()
   def selected_strategy(),
-    do: Confex.get(:skycluster, :strategy)
+    do: Confex.get_env(:skycluster, :strategy)
 
   @doc """
   Given a list of node names, attempts to connect to all of them.

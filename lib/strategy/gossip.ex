@@ -33,15 +33,16 @@ defmodule Cluster.Strategy.Gossip do
 
   def init(_) do
     info "[strategy:gossip] starting"
-    port = Confex.get(:skycluster, :port)
-    ip   = Confex.get(:skycluster, :if_addr)
-    ttl  = Confex.get(:skycluster, :multicast_ttl)
-    multicast_addr = case Confex.get(:skycluster, :multicast_addr) do
-                       {_a,_b,_c,_d} = ip -> ip
-                       ip when is_binary(ip) ->
-                         {:ok, addr} = :inet.parse_ipv4_address(~c"#{ip}")
-                         addr
-                     end
+    port = Confex.get_env(:skycluster, :port)
+    ip   = Confex.get_env(:skycluster, :if_addr)
+    ttl  = Confex.get_env(:skycluster, :multicast_ttl)
+    multicast_addr =
+      case Confex.get_env(:skycluster, :multicast_addr) do
+        {_a,_b,_c,_d} = ip -> ip
+        ip when is_binary(ip) ->
+          {:ok, addr} = :inet.parse_ipv4_address(~c"#{ip}")
+          addr
+      end
     {:ok, socket} = :gen_udp.open(port, [
           :binary,
           active: true,

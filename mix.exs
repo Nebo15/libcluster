@@ -1,7 +1,7 @@
 defmodule Cluster.Mixfile do
   use Mix.Project
 
-  @version "1.1.4"
+  @version "1.1.5"
 
   def project do
     [app: :skycluster,
@@ -45,7 +45,7 @@ defmodule Cluster.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{:confex, ">= 0.0.0"},
+    [{:confex, "~> 3.2"},
      {:poison, "~> 3.1"},
      {:ex_doc, ">= 0.0.0", only: [:dev, :test]},
      {:excoveralls, "~> 0.5", only: [:dev, :test]},
